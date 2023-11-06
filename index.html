@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+		integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<title>Chatbot Editor</title>
+</head>
+
+<body>
+	<div id="setupAccount_panel" class="container-fluid addDoc_panel">
+		<div class="assistant_container">
+			<div class="title">
+				<h1>Appearance</h1>
+				<p>You can customise the look and feel of your chatbot interface here.</p>
+			</div>
+			<form id="websiteForm">
+				<div>
+					<h2>Website</h2>
+					<label for="site">Write your website name</label>
+					<input type="text" id="site" name="site" placeholder="sitename: english101">
+				</div>
+				<div>
+					<h2>Bot</h2>
+					<label for="bot">Give your AI the name</label>
+					<input type="text" id="bot" name="bot" placeholder="AI name: Mrs. Linn's assistant"
+						onchange="createBotChangeHandler(this)">
+				</div>
+				<div>
+					<h2>Message</h2>
+					<label for="message">Write your message</label>
+					<textarea id="message" name="message" rows="3"
+						placeholder="Greeting: I am Ms. Linn's Assistant, How can I help you?"
+						onchange="createBotChangeHandler(this)">Hi! I am Mark, your virtual assistant. How can I help you?</textarea>
+				</div>
+				<div>
+					<h2>Videos</h2>
+					<label for="video">Add education videos</label>
+					<input type="text" id="video" name="video" placeholder="1: add education videos; 0: no">
+				</div>
+				<div>
+					<h2>Boundary</h2>
+					<label for="control">Set boundary</label>
+					<input type="text" id="control" name="control"
+						placeholder="Set boundary. 0: only answwer questions with my training material. 100: allow AI to find answers from other places.">
+				</div>
+				<div>
+					<h2>Chatbot Avatar</h2>
+					<p>Upload your avatar profile image to display in the chat window. Leave empty if you don't want an avatar.
+					</p>
+					<div class="avatar-container">
+						<label for="imageUpload" class="avatar">
+							<div id="imagePreview" class="imagePreview">
+								<svg viewBox="0 0 24 24" width="40" height="40">
+									<path fill="currentColor"
+										d="m22.7 14.3l-1 1l-2-2l1-1c.1-.1.2-.2.4-.2c.1 0 .3.1.4.2l1.3 1.3c.1.2.1.5-.1.7M13 19.9V22h2.1l6.1-6.1l-2-2l-6.2 6M21 5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h6v-1.9l1.1-1.1H5l3.5-4.5l2.5 3l3.5-4.5l1.6 2.1l4.9-5V5Z">
+									</path>
+								</svg>
+							</div>
+							<input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+						</label>
+						<div class="remove-btn" onclick="clearImageInput()">
+							<i class="fa-solid fa-trash"></i>
+						</div>
+					</div>
+				</div>
+				<div class='btns'>
+					<button type="button" onclick="submit_website()">Update Bot</button>
+					<button type="button" onclick="submit_addNew()">Add Bot</button>
+				</div>
+			</form>
+
+			<span class='fill-error'> Fill all fields with data, including image upload</span>
+		</div>
+		<div class="assistant_container">
+
+			<section class="chatMockup">
+
+				<div class="title">
+
+					<div class="wrapper">
+						<img src="https://storage.googleapis.com/edu_public/mark.jpg" id="chatLogo" alt="Chat Logo" />
+						<h4 id="chatName">Mark</h4>
+					</div>
+
+					<div class="btns">
+						<i class="fa-solid fa-rotate"></i>
+					</div>
+				</div>
+
+				<div class="main">
+					<div class="message bot greeting-message">
+						<span id="chatMessage" class="bot-response">Hi! I am Mark, your virtual assistant. How can I help
+							you?</span>
+						<div class="rating">
+							<i class="fa-regular fa-thumbs-up"></i>
+							<i class="fa-regular fa-thumbs-down"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="input">
+					<input type="text" class="chat-inputPage" placeholder="Enter your message..." disabled>
+					<i class="fa-sharp fa-solid fa-paper-plane"></i>
+				</div>
+				<div class="powered-by">Powered by
+					<a href="#">eduquery.ai</a>
+				</div>
+			</section>
+
+			<div>
+				<h2>You can use your AI as:</h2>
+				<div>You can share your bot with anyone by sending them the link below.</div>
+				<div class="code-container url">
+					<button onclick="onSetupCopyClick(event)">
+						<svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
+							<path fill="currentColor"
+								d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-7 0a1 1 0 0 1 1 1a1 1 0 0 1-1 1a1 1 0 0 1-1-1a1 1 0 0 1 1-1M7 7h10V5h2v14H5V5h2v2Z">
+							</path>
+						</svg>
+					</button>
+					<code id="your_site_url">
+						https://i.eduquery.ai/speed
+          </code>
+				</div>
+			</div>
+			<div>
+				<h2>Using Embed Script</h2>
+				<div>Or, you can insert the script to your own webpage to display the chatbot widget</div>
+				<div class="code-container code">
+					<button onclick="onSetupCopyClick(event)">
+						<svg viewBox="0 0 24 24" width="1.2em" height="1.2em">
+							<path fill="currentColor"
+								d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-7 0a1 1 0 0 1 1 1a1 1 0 0 1-1 1a1 1 0 0 1-1-1a1 1 0 0 1 1-1M7 7h10V5h2v14H5V5h2v2Z">
+							</path>
+						</svg>
+					</button>
+					<code id="chatbot_script">
+
+          </code>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+
+
+	</style>
+
+	<script src='js/script.js'></script>
+	<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+	<script src="
+https://cdn.jsdelivr.net/npm/sweetalert@2.1.2/dist/sweetalert.min.js
+"></script>
+</body>
+
+</html>
